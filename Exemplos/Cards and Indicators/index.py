@@ -136,19 +136,15 @@ def update_graph(value):
     if value == 'Todos':
         query = {'query':f"SELECT COUNT(*) publicacoes FROM stilingue_tabaco"}
         df = executa_sql(token, url_base, query)
-        fig = {'data': [go.Indicator(
-                mode='number',
-                value=df.loc[0].at['publicacoes'],
-                number={'valueformat': ',',
-                        'font': {'size': 100}},
-            )]
-            }
+        num = df.loc[0].at['publicacoes']
     else:
         query = {'query':f"SELECT COUNT(*) publicacoes FROM stilingue_tabaco WHERE channel='{value}'"}
         df = executa_sql(token, url_base, query)
-        fig = {'data': [go.Indicator(
+        num = df.loc[0].at['publicacoes']
+    
+    fig = {'data': [go.Indicator(
                 mode='number',
-                value=df.loc[0].at['publicacoes'],
+                value=num,
                 number={'valueformat': ',',
                         'font': {'size': 100}},
             )]
